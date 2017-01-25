@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<style>
+body {
+	margin: auto;
+	padding: 0px;
+	color: #66ae66;
+}
+a {
+	text-decoration: none;
+	color: #006e00;
+}
+.grassland table {
+	margin: 50px auto 50px auto;
+	border: 1px solid #cccccc;
+	border-spacing: 0px;
+	font-size: 5px;
+}
+.grassland td {
+	text-align: center;
+	border: 1px solid #eeeeee;
+	padding: 2px;
+}
+.grassland td.live {
+	background-color: #66ae66;
+}
+.grassland td.death {
+	background-color: #cfffcf;
+}
+.grassland td.burned {
+	background-color: #ee0000;
+}
+.pass,.reset {
+	margin: auto;
+	text-align: center;
+	width: 600px;
+}
+</style>
+<title>Grass grew</title>
+</head>
+<body>
+<div class="grassland">
+<table>
+{% for row in cells %}
+	{% set row_num=loop.index0 %}
+<tr>
+	{% for col in row %}
+		{% set col_num=loop.index0 %}
+		{% if col == constant('STATUS_LIVE') %}
+			<td class="live"><a href="/?fire={{ row_num }},{{ col_num }}">w</a></td>
+		{% elseif col == constant('STATUS_DEATH') %}
+			<td class="death"><a href="/?fire={{ row_num }},{{ col_num }}">　</a></td>
+		{% elseif col == constant('STATUS_BURNED') %}
+			<td class="burned"><a href="/?fire={{ row_num }},{{ col_num }}">　</a></td>
+		{% else %}
+			<td><a href="/?fire={{ row_num }},{{ col_num }}">　</a></td>
+		{% endif %}
+	{% endfor %}
+</tr>
+{% endfor %}
+</div>
+</table>
+<div class="pass"><a href="/">pass</a></div>
+<div class="reset"><a href="/?reset=1">reset</a></div>
+</body>
+</html>
